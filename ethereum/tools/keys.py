@@ -26,8 +26,12 @@ your wallet file.
 import binascii
 import struct
 from math import ceil
-from Crypto.Hash import keccak
-sha3_256 = lambda x: keccak.new(digest_bits=256, data=x)
+try:
+    from Crypto.Hash import keccak
+    sha3_256 = lambda x: keccak.new(digest_bits=256, data=x)
+except:
+    import sha3 as _sha3
+    sha3_256 = lambda x: _sha3.sha3_256(x)
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.Util import Counter
